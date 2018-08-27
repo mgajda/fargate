@@ -95,6 +95,7 @@ CloudWatch Logs, and Amazon Route 53 into an easy-to-use CLI.`,
 		envAwsDefaultRegion := os.Getenv("AWS_DEFAULT_REGION")
 		envAwsRegion := os.Getenv("AWS_REGION")
 
+                fmt.Printf("region='%v' AWS_REGION='%v' AWS_DEFAULT_REGION='%v'\n", region, envAwsRegion, envAwsDefaultRegion)
 		if region == "" {
 			if envAwsDefaultRegion != "" {
 				region = envAwsDefaultRegion
@@ -105,13 +106,16 @@ CloudWatch Logs, and Amazon Route 53 into an easy-to-use CLI.`,
 			}
 		}
 
+                var foundRegion bool = false
 		for _, validRegion := range validRegions {
 			if region == validRegion {
+                                foundRegion = true
 				break
 			}
-
-			console.IssueExit("Invalid region: %s [valid regions: %s]", region, strings.Join(validRegions, ", "))
 		}
+		if (! foundRegion) {
+                        console.IssueExit("Invalid region: %s [valid regions: %s]", region, strings.Join(validRegions, ", "))
+                }
 
 		config := &aws.Config{
 			Region: aws.String(region),
