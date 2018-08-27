@@ -95,7 +95,6 @@ CloudWatch Logs, and Amazon Route 53 into an easy-to-use CLI.`,
 		envAwsDefaultRegion := os.Getenv("AWS_DEFAULT_REGION")
 		envAwsRegion := os.Getenv("AWS_REGION")
 
-                fmt.Printf("region='%v' AWS_REGION='%v' AWS_DEFAULT_REGION='%v'\n", region, envAwsRegion, envAwsDefaultRegion)
 		if region == "" {
 			if envAwsDefaultRegion != "" {
 				region = envAwsDefaultRegion
